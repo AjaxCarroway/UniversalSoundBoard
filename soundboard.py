@@ -1,5 +1,9 @@
 from tkinter import *
+from PIL import ImageTk, Image
+
+import soundboard_helper
 import soundboard_keys
+
 
 def create_button(window, text: str, locations):
     button = Button(
@@ -8,6 +12,7 @@ def create_button(window, text: str, locations):
         font=('Helvetica', 20),
         command=play_sound)
     return button
+
 
 def _get_offset(row: int, x_win, y_win):
     offset = 0
@@ -20,7 +25,7 @@ def _get_offset(row: int, x_win, y_win):
         offset = 100
     return offset
 
-    
+
 def create_board(window, x_win, y_win):
     offset = 0
     boardList = ["1234567890-=", "QWERTYUIOP[]", "ASDFGHJKL;'", "ZXCVBNM,./"]
@@ -39,10 +44,6 @@ def create_board(window, x_win, y_win):
             colCount += 1
         offset = _get_offset(rowCount, x_win, y_win)
         rowCount += 1
-    window.rowconfigure(0, weight=3)
-    window.rowconfigure(1, weight=1)
-    window.rowconfigure(2, weight=1)
-    window.rowconfigure(3, weight=1)
     return keyButtonList
 
 
@@ -52,24 +53,22 @@ def play_sound():
 
 def start_window():
     root = Tk()
-    
     s_width = root.winfo_screenwidth()
     s_height = root.winfo_screenheight()
     print(s_width, s_height)
     x_win = 1020
     y_win = 350
-    
 
-    width_center = int((s_width/2) - (x_win/2))
-    height_center = int((s_height/2) - (y_win/2))
-    
+    width_center = int((s_width / 2) - (x_win / 2))
+    height_center = int((s_height / 2) - (y_win / 2))
+
     root.geometry(f"{x_win}x{y_win}+{width_center}+{height_center}")
-    root.resizable(False, False)
+    #root.resizable(False, False)
     keyButtonList = create_board(root, x_win, y_win)
     root.mainloop()
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     start_window()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
-

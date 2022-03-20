@@ -1,12 +1,8 @@
-from tkinter import filedialog
+from tkinter import *
+from PIL import ImageTk, Image
 
-def select_sound(key, event):
-    prompt = filedialog.askopenfilename(initialdir="",
-                                                     title="Select A Sound",
-                                                     filetypes=(("MP3", "*.mp3"),
-                                                                ("WAV", "*.wav"),
-                                                                ("OGG", "*.ogg")))
-    key.set_soundfile(prompt)
-    
-def play_sound(key):
-        pass
+
+def get_image():
+    img = Image.open("key_unpressed.png")
+    img = img.resize((70, 70), Image.ANTIALIAS)
+    return ImageTk.PhotoImage(img)
