@@ -1,7 +1,10 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from pygame import mixer
+from pynput import keyboard
+
 import soundboard_helper
+from pynput.keyboard import Key, Listener
 import soundboard_keys
 
 
@@ -29,6 +32,7 @@ def _get_offset(row: int, x_win, y_win):
 def create_board(window, x_win, y_win):
     offset = 0
     boardList = ["1234567890-=", "QWERTYUIOP[]", "ASDFGHJKL;'", "ZXCVBNM,./"]
+    keyDict = {}
     keyButtonList = []
     rowCount = 0
     for row in boardList:
@@ -41,14 +45,19 @@ def create_board(window, x_win, y_win):
             y_coord = (rowCount * 70 + y_win * 0.15)
             button.place(bordermode=OUTSIDE, x=(x_coord), y=(y_coord))
             keyButtonList.append(key)
+            keyDict[char.lower()] = key
             colCount += 1
         offset = _get_offset(rowCount, x_win, y_win)
         rowCount += 1
-    return keyButtonList
+    print(keyDict)
+    return keyButtonList, keyDict
 
 
-def play_sound():
-    pass
+def on_press(key, keyDict):
+    letter = str(key)[1:2]
+    print("playing")
+    keyDict[letter].play_sound()
+    print(f'{key} pressed')
 
 
 def start_window():
@@ -58,13 +67,15 @@ def start_window():
     print(s_width, s_height)
     x_win = 1020
     y_win = 350
-    #root.bind("<space>", soundboard_helper.end_mixer())
+    # root.bind("<space>", soundboard_helper.end_mixer())
     width_center = int((s_width / 2) - (x_win / 2))
     height_center = int((s_height / 2) - (y_win / 2))
-
     root.geometry(f"{x_win}x{y_win}+{width_center}+{height_center}")
-    #root.resizable(False, False)
-    keyButtonList = create_board(root, x_win, y_win)
+    # root.resizable(False, False)
+    keyButtonList, keyDict = create_board(root, x_win, y_win)
+    listener = keyboard.Listener(
+        on_press=lambda event: on_press(event, keyDict))
+    listener.start()
     root.mainloop()
 
 

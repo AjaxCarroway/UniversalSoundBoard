@@ -1,9 +1,9 @@
 from tkinter import *
 from tkinter import filedialog
 import soundboard_helper
-from playsound import playsound
+#from playsound import playsound
 import multiprocessing
-import time
+#import time
 
 
 class Key:
@@ -19,10 +19,10 @@ class Key:
             width=60, height=60,
             image=self._photo, borderwidth=0,
             compound='center',
-            font=('Helvetica', 20))
+            font=('Ubuntu', 20))
         button.bind('<Enter>', self._hover)
         button.bind('<Leave>', self._leave)
-        button.bind('<Button-1>', self._play_sound)
+        button.bind('<Button-1>', self.play_sound)
         button.bind('<Button-2>', self._select_sound)
         button.bind('<Button-3>', self._select_sound)
         self._button = button
@@ -39,7 +39,7 @@ class Key:
                                                      filetypes=(("MP3", "*.mp3"),
                                                                 ("WAV", "*.wav"),))
 
-    def _play_sound(self, event):
+    def play_sound(self, event=None):
         print(self._soundfile)
         if self._soundfile:
             p = multiprocessing.Process(target=soundboard_helper.music(self._soundfile))
