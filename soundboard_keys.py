@@ -3,6 +3,7 @@ from tkinter import filedialog
 import soundboard_helper
 from playsound import playsound
 import multiprocessing
+import time
 
 
 class Key:
@@ -39,12 +40,15 @@ class Key:
                                                                 ("WAV", "*.wav"),))
 
     def _play_sound(self, event):
+        print(self._soundfile)
         if self._soundfile:
-            interrupt = multiprocessing.Process(target=playsound, args=self._soundfile)
-            interrupt.start()
+            p = multiprocessing.Process(target=soundboard_helper.music(self._soundfile))
+            p.start()
 
     def _hover(self, event):
         self._button.config(background=self._button.cget('background'))
 
     def _leave(self, event):
         self._button.config(background=self._button.cget('background'))
+
+

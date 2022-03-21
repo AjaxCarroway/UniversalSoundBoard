@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
-
+from pygame import mixer
 import soundboard_helper
 import soundboard_keys
 
@@ -58,7 +58,7 @@ def start_window():
     print(s_width, s_height)
     x_win = 1020
     y_win = 350
-
+    #root.bind("<space>", soundboard_helper.end_mixer())
     width_center = int((s_width / 2) - (x_win / 2))
     height_center = int((s_height / 2) - (y_win / 2))
 
@@ -71,4 +71,3 @@ def start_window():
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     start_window()
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
