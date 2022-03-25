@@ -23,7 +23,7 @@ class Key:
     def create_button(self, window):
         button = Button(
             window, text=self._keyname,
-            width=70, height=70,
+            width=54, height=75,
             bg = "#09265C", highlightbackground= "#09265C",
             image=self._photo, borderwidth=0,
             compound='center',

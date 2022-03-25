@@ -9,7 +9,8 @@ import soundboard_errors
 
 
 def get_image():
-    img = Image.open("key_unpressed.png")
+    dir = os.path.dirname(__file__)
+    img = Image.open(f'{dir}/key_unpressed.png')
     img = img.resize((80, 80), Image.ANTIALIAS)
     return ImageTk.PhotoImage(img)
 
